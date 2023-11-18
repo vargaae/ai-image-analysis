@@ -1,0 +1,223 @@
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:300");
+.p {
+  max-width: 1800px;
+  height: 200px;
+  margin: 50px 0px;
+  border: 2px solid rgb(243, 242, 242);
+  border-radius: 10px 10px 0 0;
+  overflow: hidden;
+  display: flex;
+}
+
+.p-devtools {
+  width: 80vw;
+  margin: 50px 0px;
+  height: 60vh;
+  border: 1px solid rgb(243, 242, 242);
+  border-radius: 10px 10px 0 0;
+  overflow: hidden;
+  .details {
+    flex: 1;
+    text-align: left;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: white;
+    color: black;
+    min-height: 550px;
+    width: 400px;
+    overflow-x: auto;
+
+    .console {
+      border-bottom: 0.2px solid lightgray;
+      background-color: lightgray;
+      width: 100%;
+      padding: 3px 10px;
+      font-style: italic;
+      font-size: 14px;
+      font-weight: 300;
+    }
+
+    h2, h3 {
+      padding: 0px 10px 0px 40px;
+    }
+
+    span {
+      color: #0ccac4;
+    }
+
+    p {
+      padding: 6px;
+    }
+    .stack {
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      background-color: lightblue;
+    }
+    #customers {
+      font-family: Arial, Helvetica, sans-serif;
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    #customers td,
+    #customers th {
+      border: 0px solid #ddd;
+      padding: 12px;
+    }
+
+    #customers tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+
+    #customers tr:hover {
+      background-color: #ddd;
+    }
+
+    #customers th {
+      padding-top: 12px;
+      padding-bottom: 12px;
+      background-color: #026873;
+      background-image: linear-gradient(90deg, rgba(255,255,255,.07) 50%, transparent 50%),
+      linear-gradient(90deg, rgba(255,255,255,.13) 50%, transparent 50%),
+      linear-gradient(90deg, transparent 50%, rgba(255,255,255,.17) 50%),
+      linear-gradient(90deg, transparent 50%, rgba(255,255,255,.19) 50%);
+      background-size: 13px, 29px, 37px, 53px;
+      color: white;
+    }
+
+    #customers th:nth-child(2),
+    #customers td:nth-child(2) {
+      text-align: right;
+    }
+  }
+}
+
+.p-browser {
+  min-height: 20px;
+  background-color: rgb(243, 242, 242);
+  display: flex;
+  align-items: center;
+  position: sticky;
+  z-index: 2;
+}
+
+.p-circle {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  margin: 3px;
+  background-color: white;
+}
+
+.p-title {
+  margin: 3px;
+  padding-left: 10px;
+  color: gray;
+}
+.p-dev-tools {
+  border: 0.5px solid lightgray;
+  display: flex;
+
+  .p-dev-browser {
+    min-height: 20px;
+    min-width: 300px;
+    background-color: rgb(243, 242, 242);
+    display: flex;
+    align-items: center;
+    position: sticky;
+    z-index: 2;
+    color: black;
+
+    p {
+      padding: 10px;
+    }
+    tr:nth-child(2) {
+      border-bottom: 1px solid blue;
+    }
+  }
+
+  .image-concepts {
+    flex: 1;
+    display: flex;
+    justify-items: center;
+    align-items: center;
+  }
+  .p-img {
+    width: 100%;
+  }
+}
+
+/* MEDIA QUERIES */
+
+@media screen and (max-width: 480px) {
+  // .p {
+  //   width: 40%;
+  //   height: 20vh;
+  // }
+}
+
+@media screen and (max-width: 600px) {
+  .p {
+    max-width: 80%;
+    height: 30vh;
+  }
+  .thumb-container {
+    display: none;
+  }
+  .p-dev-tools {
+    flex-direction: column;
+    width: 100%;
+  }
+}
+@media screen and (max-width: 768px) {
+  .i {
+    width: 100%;
+    height: auto;
+    margin: 0px 0px;
+    border: 2px solid rgb(243, 242, 242);
+    border-radius: 10px 10px 0 0;
+    overflow-x: hidden;
+    .p-devtools {
+      height: auto;
+      width: 100%;
+      margin: 0px 0px 50px 0px;
+      border-radius: 0;
+      flex-direction: column;
+      width: 100%;
+      overflow-x: hidden;
+    }
+
+    .p-devtools .details #customers {
+      width: 87%;
+    }
+
+    h2 {
+      font-size: 1em;
+    }
+    #customers {
+      font-size: 0.8em;
+      text-align: left;
+    }
+
+    #customers td,
+    #customers th {
+      border: 0px solid #ddd;
+      padding: 2px;
+    }
+
+    #customers tr {
+      padding: 2px;
+      width: 50vw;
+    }
+
+    #customers th {
+      padding-left: 2px;
+      padding-right: 2px;
+    }
+
+    #customers th:nth-child(2),
+    #customers td:nth-child(2) {
+      text-align: left;
+    }
+  }
+
+}

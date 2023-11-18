@@ -1,0 +1,156 @@
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:300");
+
+$body-bg-color: #212121;
+$thumbnail-size: 200px;
+$thumbnail-border-radius: 6%;
+$thumbnail-transition-duration: 0.35s;
+$thumbnail-caption-bg-color: #f8f8f8;
+$thumbnail-caption-font-color: #ababab;
+$thumbnail-caption-font-size: 16px;
+$thumbnail-overlay-bg-color: #000;
+$thumbnail-overlay-text: "Code";
+$thumbnail-overlay-text-code: "Demo";
+$thumbnail-overlay-font-color: $thumbnail-caption-bg-color;
+$thumbnail-overlay-font-size: 24px;
+$font-family: "Open Sans", sans-serif;
+
+
+.thumb-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  // background-color: $body-bg-color;
+}
+
+.thumbnail {
+  position: relative;
+  height: $thumbnail-size;
+  width: $thumbnail-size;
+  border-radius: $thumbnail-border-radius;
+  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.8);
+  overflow: hidden;
+  cursor: pointer;
+  transition: box-shadow $thumbnail-transition-duration ease;
+
+  &:before {
+    content: "";
+    display: block;
+    width: 100%;
+    padding-bottom: 100%;
+  }
+
+  /* Hover transition */
+  &:hover {
+    box-shadow: 0 20px 15px -8px rgba(0, 0, 0, 0.8);
+  }
+}
+
+.thumbnail__container {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.thumbnail__img {
+  flex: 4 0 auto;
+  background-position: center;
+  background-size: cover;
+  background-image: url(https://clarifai.com/cms-assets/20180320225539/general-009.jpg);
+  transform: scale(1.2);
+  transition: transform $thumbnail-transition-duration ease;
+
+  /* Hover transition */
+  .thumbnail:hover & {
+    transform: scale(1);
+  }
+
+  &:before,
+  &:after {
+    position: absolute;
+  }
+
+  &:before {
+    content: $thumbnail-overlay-text-code;
+    top: 50%;
+    left: 50%;
+    z-index: 10;
+    color: $thumbnail-overlay-font-color;
+    font-family: $font-family;
+    font-size: $thumbnail-overlay-font-size;
+    font-weight: 300;
+    letter-spacing: 5px;
+    line-height: 2;
+    text-transform: uppercase;
+    background-image: linear-gradient(
+      to right,
+      $thumbnail-overlay-font-color 0%,
+      $thumbnail-overlay-font-color 100%
+    );
+    background-position: center bottom;
+    background-repeat: no-repeat;
+    background-size: 45% 3%;
+    transform: translate(-50%, -50%);
+    transition: opacity $thumbnail-transition-duration linear,
+      transform $thumbnail-transition-duration ease;
+
+    /* Hover transition */
+    .thumbnail:hover & {
+      opacity: 0;
+      transform: translate(-50%, -500%) scale(0.5);
+    }
+  }
+
+  &:after {
+    content: "";
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: $thumbnail-overlay-bg-color;
+    opacity: 0.3;
+    transition: opacity $thumbnail-transition-duration linear;
+
+    /* Hover transition */
+    .thumbnail:hover & {
+      opacity: 0;
+    }
+  }
+}
+
+.thumbnail__content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 0;
+  background-color: $thumbnail-caption-bg-color;
+  overflow: hidden;
+  transition: flex-grow $thumbnail-transition-duration ease;
+
+  /* Hover transition */
+  .thumbnail:hover & {
+    flex-grow: 1;
+  }
+}
+
+.thumbnail__caption {
+  color: $thumbnail-caption-font-color;
+  font-family: $font-family;
+  font-size: $thumbnail-caption-font-size;
+  font-weight: 300;
+  line-height: 1.5;
+  overflow: hidden;
+  opacity: 0;
+  transform: scale(0.5) translateY(100%);
+  transition: opacity $thumbnail-transition-duration linear,
+    transform $thumbnail-transition-duration ease;
+
+  /* Hover transition */
+  .thumbnail:hover & {
+    transform: scale(1);
+    opacity: 1;
+  }
+}

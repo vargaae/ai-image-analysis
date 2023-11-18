@@ -1,0 +1,32 @@
+.l {
+  // position: absolute;
+}
+
+.Tilt {
+  background: linear-gradient(
+    89deg,
+    hsl(229, 75%, 50%) 0%,
+    #04c8de 100%
+  ); /* w3c */
+}
+
+.parallax-effect-img {
+  transform-style: preserve-3d;
+  transform: perspective(1000px);
+  // background-image: url('./img/background.jpg');
+  background: linear-gradient(
+    89deg,
+    hsl(229, 75%, 50%) 0%,
+    #04c8de 100%
+  ); /* w3c */
+  background-size: contain;
+  background-repeat: no-repeat;
+
+  .inner-element {
+    transform: translateZ(40px) scale(0.8);
+    width: 100px;
+    height: 100px;
+    padding-top: 5px;
+    // margin-left: 25%;
+  }
+}

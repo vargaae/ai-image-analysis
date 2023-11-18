@@ -1,0 +1,19 @@
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:300");
+
+body {
+  margin: 0;
+  font-family: "Open Sans", monospace;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: rgb(0,84,134);
+background: linear-gradient(90deg, rgba(0,84,134,1) 0%, rgba(29,161,253,1) 50%, rgba(0,172,200,1) 100%);
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+button {
+  cursor: pointer;
+}
