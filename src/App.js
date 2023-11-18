@@ -1,5 +1,4 @@
-import "./App.css";
-// import "./App.scss";
+import "./App.scss";
 import { Component, useState } from "react";
 import Navigation from "./components/Navigation/Navigation";
 import ImageLinkForm from "./components/image-link-form/ImageLinkForm";
