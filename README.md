@@ -31,12 +31,12 @@ both BE+FE applications and the DB entirely in the CLOUD:
 <img alt="Application image" src="https://blackdeerdev.com/wp-content/uploads/2021/02/Heroku.png" width="250" />
 
 ## 🛠 Front End: 
-- ReactJS 17
+- ReactJS 18.2
 - JavasScript
 - SASS
 - Tachyons
-- tsparticles
-- parallax-tilt
+- particles-bg
+- react-parallax-tilt
 - clarifai 2.9.1
 
 ## 🛠 Back End: 

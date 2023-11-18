@@ -1,8 +1,8 @@
 export const images = [
     {
       id: 1,
-      img: "https://clarifai.com/cms-assets/20180320225539/general-009.jpg",
-      link: "https://clarifai.com/cms-assets/20180320225539/general-009.jpg",
+      img: "https://www.clarifai.com/hs-fs/hubfs/adorable-animal-blur-686094.jpg?width=600&name=adorable-animal-blur-686094.jpg",
+      link: "https://www.clarifai.com/hs-fs/hubfs/adorable-animal-blur-686094.jpg?width=600&name=adorable-animal-blur-686094.jpg",
       title: "Example image",
     },
     {
