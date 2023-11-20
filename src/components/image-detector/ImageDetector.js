@@ -3,7 +3,7 @@ import "./image-detector.scss";
 import Card from "./Card";
 import { images } from "../../data";
 
-const ImageDetector = ({ imageUrl, conceptList, concepts, onClickThumb }) => {
+const ImageDetector = ({ imageUrl, predictions, onClickThumb }) => {
   return (
     <>
       For instance:
@@ -13,90 +13,56 @@ const ImageDetector = ({ imageUrl, conceptList, concepts, onClickThumb }) => {
           <div className="p-dev-tools">
             <div className="details">
               <div className="console">Clarifai API</div>
-              <h2>General Model - Top10 keywords</h2>
+              <h2>Top20 keywords for a photographer</h2>
               <table id="customers">
-                <tr>
-                  <th>PREDICTED CONCEPT</th>
-                  <th>PROBABILITY</th>
-                </tr>
-                <tr>
-                  <td>
-                    <span>{">"} 1. </span> {concepts.conceptName}
-                  </td>
-                  <td>{concepts.conceptValue}</td>
-                </tr>
-                <tr>
-                  <td>
-                    <span>{">"} 2. </span> {concepts.conceptName1}
-                  </td>
-                  <td>{concepts.conceptValue1}</td>
-                </tr>
-                <tr>
-                  <td>
-                    <span>{">"} 3. </span> {concepts.conceptName2}
-                  </td>
-                  <td>{concepts.conceptValue2}</td>
-                </tr>
-                <tr>
-                  <td>
-                    <span>{">"} 4. </span> {concepts.conceptName3}
-                  </td>
-                  <td>{concepts.conceptValue3}</td>
-                </tr>
-                <tr>
-                  <td>
-                    <span>{">"} 5. </span> {concepts.conceptName4}
-                  </td>
-                  <td>{concepts.conceptValue4}</td>
-                </tr>
-                <tr>
-                  <td>
-                    <span>{">"} 6. </span> {concepts.conceptName5}
-                  </td>
-                  <td>{concepts.conceptValue5}</td>
-                </tr>
-                <tr>
-                  <td>
-                    <span>{">"} 7. </span> {concepts.conceptName6}
-                  </td>
-                  <td>{concepts.conceptValue6}</td>
-                </tr>
-                <tr>
-                  <td>
-                    <span>{">"} 8. </span> {concepts.conceptName7}
-                  </td>
-                  <td>{concepts.conceptValue7}</td>
-                </tr>
-                <tr>
-                  <td>
-                    <span>{">"} 9. </span> {concepts.conceptName8}
-                  </td>
-                  <td>{concepts.conceptValue8}</td>
-                </tr>
-                <tr>
-                  <td>
-                    <span>{">"} 10. </span> {concepts.conceptName9}
-                  </td>
-                  <td>{concepts.conceptValue9}</td>
-                </tr>
+                <tbody>
+                  <tr>
+                    <th>PROBABILITY</th>
+                    <th>PREDICTED CONCEPT</th>
+                  </tr>
+                  {predictions?.length ? (
+                    predictions?.map((item) => (
+                      <tr key={item.id}>
+                        <td>
+                          <span>{">"} </span>
+                          {Math.round(item.value * 100)}%
+                        </td>
+                        <td className="prediction">{item.name}</td>
+                      </tr>
+                    ))
+                  ) : (
+                    <div className="warning red" key={predictions?.length}>
+                      Paste an URL of the image that you want to analyse
+                    </div>
+                  )}
+                </tbody>
               </table>
             </div>
             <div className="image-concepts">
-              <img id="inputimage" className="p-img" alt="" src={imageUrl} />
+              <a href={imageUrl} target="blank">
+                {" "}
+                <img
+                  id="inputimage"
+                  className="p-img"
+                  alt={imageUrl}
+                  src={imageUrl}
+                />{" "}
+              </a>
             </div>
           </div>
         </div>
       </div>
-      {/* <div className="p center">
-        {images.map((item) => (
+    {/*  <div className="p center">
+        {images.map((img) => (
           <Card
-            key={item.id}
-            img={item.img}
+            key={img.id}
+            img={img.img}
+            title={img.title}
             onClick={onClickThumb}
           />
         ))}
         <div className="absolute mt2"></div>
-      </div> */}
+        </div> */}
     </>
   );
 };

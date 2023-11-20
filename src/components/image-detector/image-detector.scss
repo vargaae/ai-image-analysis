@@ -10,9 +10,9 @@
 }
 
 .p-devtools {
-  width: 80vw;
+  width: 65vw;
   margin: 50px 0px;
-  height: 60vh;
+  height: auto;
   border: 1px solid rgb(243, 242, 242);
   border-radius: 10px 10px 0 0;
   overflow: hidden;
@@ -42,6 +42,9 @@
 
     span {
       color: #0ccac4;
+    }
+    .prediction {
+      font-weight: bold;
     }
 
     p {
@@ -139,10 +142,14 @@
     flex: 1;
     display: flex;
     justify-items: center;
-    align-items: center;
+    align-items: start;
   }
   .p-img {
     width: 100%;
+    border: 1px solid #ddd;
+  }
+  .p-img:hover {
+    box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
   }
 }
 

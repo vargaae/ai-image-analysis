@@ -60,11 +60,10 @@ const returnClarifaiRequestOptions = (imageUrl) => {
 };
 
 const initialState = {
-  input: "",
+  input:
+    "https://www.clarifai.com/hs-fs/hubfs/adorable-animal-blur-686094.jpg?width=600&name=adorable-animal-blur-686094.jpg",
   imageUrl: "",
   box: {},
-  concepts: {},
-  conceptList: [],
   predictions: [],
   // !Change route from "home" to route: "signin", - if we need sign in form:
   // route: "signin",
@@ -97,48 +96,6 @@ class App extends Component {
     });
   };
 
-  displayPredictions = (data) => {
-    const clarifaiConcept = data.rawData.outputs[0].data.concepts[0];
-    const clarifaiConcept1 = data.rawData.outputs[0].data.concepts[1];
-    const clarifaiConcept2 = data.rawData.outputs[0].data.concepts[2];
-    const clarifaiConcept3 = data.rawData.outputs[0].data.concepts[3];
-    const clarifaiConcept4 = data.rawData.outputs[0].data.concepts[4];
-    const clarifaiConcept5 = data.rawData.outputs[0].data.concepts[5];
-    const clarifaiConcept6 = data.rawData.outputs[0].data.concepts[6];
-    const clarifaiConcept7 = data.rawData.outputs[0].data.concepts[7];
-    const clarifaiConcept8 = data.rawData.outputs[0].data.concepts[8];
-    const clarifaiConcept9 = data.rawData.outputs[0].data.concepts[9];
-    return {
-      conceptName: clarifaiConcept.name,
-      conceptValue: clarifaiConcept.value,
-      conceptName1: clarifaiConcept1.name,
-      conceptValue1: clarifaiConcept1.value,
-      conceptName2: clarifaiConcept2.name,
-      conceptValue2: clarifaiConcept2.value,
-      conceptName3: clarifaiConcept3.name,
-      conceptValue3: clarifaiConcept3.value,
-      conceptName4: clarifaiConcept4.name,
-      conceptValue4: clarifaiConcept4.value,
-      conceptName5: clarifaiConcept5.name,
-      conceptValue5: clarifaiConcept5.value,
-      conceptName6: clarifaiConcept6.name,
-      conceptValue6: clarifaiConcept6.value,
-      conceptName7: clarifaiConcept7.name,
-      conceptValue7: clarifaiConcept7.value,
-      conceptName8: clarifaiConcept8.name,
-      conceptValue8: clarifaiConcept8.value,
-      conceptName9: clarifaiConcept9.name,
-      conceptValue9: clarifaiConcept9.value,
-    };
-  };
-
-  displayPredictionList = (data) => {
-    const clarifaiConceptList = data.outputs[0].data.concepts;
-    return {
-      conceptList: clarifaiConceptList,
-    };
-  };
-
   calculateFaceLocation = (data) => {
     const clarifaiFace =
       data.outputs[0].data.regions[0].region_info.bounding_box;
@@ -153,12 +110,6 @@ class App extends Component {
     };
   };
 
-  displayConcepts = (concepts) => {
-    this.setState({ concepts: concepts });
-  };
-  displayConceptList = (conceptList) => {
-    this.setState({ conceptList: conceptList });
-  };
   displayFaceBox = (box) => {
     this.setState({ box: box });
   };
@@ -167,7 +118,32 @@ class App extends Component {
     this.setState({ input: event.target.value });
   };
 
-  // !now this two function work???: onClickThumb, onImageSubmit -> save to new file?!
+  onClickThumb = () => {
+    console.log("click to the thumb", this.state);
+    // this.setState({ input: event.target.value });
+    this.setState({ imageUrl: this.state.input });
+    fetch(
+      // "https://api.clarifai.com/v2/models/" + MODEL_ID + "/outputs",
+      "https://api.clarifai.com/v2/models/" +
+        "general-image-recognition" +
+        "/outputs",
+      returnClarifaiRequestOptions(this.state.input)
+    )
+      .then((response) => response.json())
+      .then((response) => {
+        this.setState(
+          () => {
+            return { predictions: response.outputs[0].data.concepts };
+          },
+          () => {
+            console.log(this.state);
+          }
+        );
+      })
+      .catch((err) => console.log(err));
+  };
+
+  // !now this function work: onImageSubmit -> save to new file?!
   onImageSubmit = () => {
     console.log("hi");
     this.setState({ input: event.target.value });
@@ -216,7 +192,7 @@ class App extends Component {
         //     })
         //     .catch((err) => console.log);
         // }
-        this.displayConcepts(this.displayPredictions(response));
+        // this.displayConcepts(this.displayPredictions(response));
       })
       .catch((err) => console.log(err));
   };
@@ -246,70 +222,9 @@ class App extends Component {
   //           .catch((err) => console.log);
   //       }
   //       this.displayConcepts(this.displayPredictions(response));
-  //       // this.displayFaceBox(this.calculateFaceLocation(response));
   //     })
   //     .catch((err) => console.log(err));
   // };
-
-  // !now this two function work???: onClickThumb, onImageSubmit -> save to new file?!
-  onClickThumb = (event) => {
-    console.log("hi");
-    this.setState({ input: event.target.value });
-    this.setState({ imageUrl: this.state.input });
-
-    fetch(
-      // "https://api.clarifai.com/v2/models/" + MODEL_ID + "/outputs",
-      "https://api.clarifai.com/v2/models/" +
-        "general-image-recognition" +
-        "/outputs",
-      returnClarifaiRequestOptions(this.state.input)
-    )
-      .then((response) => response.json())
-      .then((response) => {
-        console.log("hi", response);
-
-        // !Old version of the prediction
-        {
-          /* app.models
-      .predict(
-        "Clarifai.GENERAL_MODEL",
-        "https://www.clarifai.com/hs-fs/hubfs/adorable-animal-blur-686094.jpg?width=600&name=adorable-animal-blur-686094.jpg"
-      )
-      .then(function (response) {
-        console.log("hi", response);
-      }); */
-        }
-
-        // !!!Version if we send post request to the deployed api:
-        {
-          /* fetch("https://image-detect-application.herokuapp.com/imageurl", {
-      method: "post",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        input: this.state.input,
-      }),
-    })
-      .then((response) => response.json())
-      .then((response) => { */
-        }
-        if (response) {
-          fetch("https://image-detect-application.herokuapp.com/image", {
-            method: "put",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              id: this.state.user.id,
-            }),
-          })
-            .then((response) => response.json())
-            .then((count) => {
-              this.setState(Object.assign(this.state.user, { entries: count }));
-            })
-            .catch((err) => console.log);
-        }
-        this.displayConcepts(this.displayPredictions(response));
-      })
-      .catch((err) => console.log(err));
-  };
 
   // !I put this here for example to make it working locally:
   // !!! Clean if it's no more necessary:
@@ -364,8 +279,7 @@ class App extends Component {
     this.setState({ route: route });
   };
   render() {
-    const { isSignedIn, imageUrl, route, box, concepts, conceptList } =
-      this.state;
+    const { isSignedIn, imageUrl, route, box, predictions } = this.state;
     // const particlesInit = (main) => {
     // you can initialize the tsParticles instance (main) here, adding custom shapes or presets
     // };
@@ -373,10 +287,10 @@ class App extends Component {
     // const particlesLoaded = (container) => {};
     return (
       <div className="App">
-        <Navigation
+        {/* <Navigation
           isSignedIn={isSignedIn}
           onRouteChange={this.onRouteChange}
-        />
+    /> */}
         {route === "home" ? (
           <div>
             <h1 className="title">AI Detection Image Analysis Application</h1>
@@ -390,21 +304,38 @@ class App extends Component {
               onInputChange={this.onInputChange}
               onImageSubmit={this.onImageSubmit}
             />
-            <ImageDetector
-              onClickThumb={this.onClickThumb}
-              concepts={concepts}
-              conceptList={conceptList}
-              imageUrl={imageUrl}
-            />
-            <div className="prediction">
-              {this.state.predictions.map((item) => (
-                <p>
-                  Ennyire biztos, hogy:{item.value} ezen a képen látható a
-                  következő:{item.name}
-                </p>
+            <div className="p center">
+              {images.map((img) => (
+                <div
+                  className="thumb-container"
+                  key={img.id}
+                  onClick={this.onClickThumb}
+                >
+                  <a target={img.img} rel="noreferrer">
+                    <div className="thumbnail">
+                      <div className="thumbnail__container">
+                        <div
+                          className="thumbnail__img"
+                          style={{
+                            backgroundImage: `url(${img.img})`,
+                          }}
+                        >
+                          <div className="thumbnail__content">
+                            <h1 className="thumbnail__caption">{img.title}</h1>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </a>
+                </div>
               ))}
               <div className="absolute mt2"></div>
             </div>
+            <ImageDetector
+              onClickThumb={this.onClickThumb}
+              predictions={predictions}
+              imageUrl={imageUrl}
+            />
             {/* <FaceRecognition box={box} imageUrl={imageUrl} /> */}
           </div>
         ) : route === "signin" ? (
