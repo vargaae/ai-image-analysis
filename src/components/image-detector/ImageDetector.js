@@ -6,7 +6,6 @@ import { images } from "../../data";
 const ImageDetector = ({ imageUrl, predictions, onClickThumb }) => {
   return (
     <>
-      For instance:
       <p> {images[0].img}</p>
       <div className="i center">
         <div className="p-devtools">
@@ -32,7 +31,7 @@ const ImageDetector = ({ imageUrl, predictions, onClickThumb }) => {
                     ))
                   ) : (
                     <div className="warning red" key={predictions?.length}>
-                      Paste an URL of the image that you want to analyse
+                      Choose a Demo Image or Paste an URL of the image that you want to analyse and then click the Analyse button
                     </div>
                   )}
                 </tbody>

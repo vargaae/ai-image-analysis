@@ -60,8 +60,7 @@ const returnClarifaiRequestOptions = (imageUrl) => {
 };
 
 const initialState = {
-  input:
-    "https://www.clarifai.com/hs-fs/hubfs/adorable-animal-blur-686094.jpg?width=600&name=adorable-animal-blur-686094.jpg",
+  input: "",
   imageUrl: "",
   box: {},
   predictions: [],
@@ -116,31 +115,6 @@ class App extends Component {
 
   onInputChange = (event) => {
     this.setState({ input: event.target.value });
-  };
-
-  onClickThumb = () => {
-    console.log("click to the thumb", this.state);
-    // this.setState({ input: event.target.value });
-    this.setState({ imageUrl: this.state.input });
-    fetch(
-      // "https://api.clarifai.com/v2/models/" + MODEL_ID + "/outputs",
-      "https://api.clarifai.com/v2/models/" +
-        "general-image-recognition" +
-        "/outputs",
-      returnClarifaiRequestOptions(this.state.input)
-    )
-      .then((response) => response.json())
-      .then((response) => {
-        this.setState(
-          () => {
-            return { predictions: response.outputs[0].data.concepts };
-          },
-          () => {
-            console.log(this.state);
-          }
-        );
-      })
-      .catch((err) => console.log(err));
   };
 
   // !now this function work: onImageSubmit -> save to new file?!
@@ -270,6 +244,32 @@ class App extends Component {
   //     .catch((error) => console.log("error", error));
   // };
 
+  onClickThumb = (img) => {
+    console.log("click to the thumb", this.state);
+    this.setState({ input: img });
+    this.setState({ imageUrl: img });
+    console.log("STATEChange", this.state);
+    fetch(
+      // "https://api.clarifai.com/v2/models/" + MODEL_ID + "/outputs",
+      "https://api.clarifai.com/v2/models/" +
+        "general-image-recognition" +
+        "/outputs",
+      returnClarifaiRequestOptions(this.state.input)
+    )
+      .then((response) => response.json())
+      .then((response) => {
+        this.setState(
+          () => {
+            return { predictions: response.outputs[0].data.concepts };
+          },
+          () => {
+            console.log(this.state);
+          }
+        );
+      })
+      .catch((err) => console.log(err));
+  };
+
   onRouteChange = (route) => {
     if (route === "signout") {
       this.setState(initialState);
@@ -294,22 +294,14 @@ class App extends Component {
         {route === "home" ? (
           <div>
             <h1 className="title">AI Detection Image Analysis Application</h1>
-            <div className="mobile-off">
-              <Rank
-                name={this.state.user.name}
-                entries={this.state.user.entries}
-              />
-            </div>
-            <ImageLinkForm
-              onInputChange={this.onInputChange}
-              onImageSubmit={this.onImageSubmit}
-            />
             <div className="p center">
               {images.map((img) => (
                 <div
                   className="thumb-container"
                   key={img.id}
-                  onClick={this.onClickThumb}
+                  onClick={() =>
+                    this.onClickThumb(`${img.img}`)
+                  }
                 >
                   <a target={img.img} rel="noreferrer">
                     <div className="thumbnail">
@@ -331,6 +323,16 @@ class App extends Component {
               ))}
               <div className="absolute mt2"></div>
             </div>
+            <div className="mobile-off">
+              <Rank
+                name={this.state.user.name}
+                entries={this.state.user.entries}
+              />
+            </div>
+            <ImageLinkForm
+              onInputChange={this.onInputChange}
+              onImageSubmit={this.onImageSubmit}
+            />
             <ImageDetector
               onClickThumb={this.onClickThumb}
               predictions={predictions}
